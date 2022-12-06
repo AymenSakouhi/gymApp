@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import data from "./data/data.json";
+import BackgroundContext from "./BackgroundContext";
+import ColorContext from "./ColorContext";
 
 const today = new Date().toLocaleString().split(",")[0];
 let muscle = "biceps"; // eslint-disable-line
 const NewComponent = () => {
   const [date, setDate] = useState(today); // eslint-disable-line
   const [exercises, setExercices] = useState([]);
+  const [background, setBackground] = useContext(BackgroundContext); // eslint-disable-line no-unused-vars
+  const [color, setColor] = useContext(ColorContext); // eslint-disable-line no-unused-vars
 
   useEffect(() => {
     getGymDailyTodos();
@@ -34,7 +38,10 @@ const NewComponent = () => {
 
   return (
     <div>
-      <main id="todolist">
+      <h1 style={{ color: color }} id="title">
+        Welcome to the best gym companion app
+      </h1>
+      <main id="todolist" style={{ background: background }}>
         <h1>
           Gym list of todos for {date}
           <span>Get things done, one item at a time.</span>

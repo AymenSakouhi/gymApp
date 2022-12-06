@@ -1,15 +1,23 @@
 //https://codepen.io/saawsan/pen/jayzeq
 
-import { StrictMode } from "react";
+import { StrictMode, useState } from "react";
 import { render } from "react-dom";
 import NewComponent from "./NewComponent";
+import BackgroundContext from "./BackgroundContext";
+import ColorContext from "./ColorContext";
 
 const App = () => {
+  const background = useState("rgba(162,102,255,1)");
+  const color = useState("#51516b");
+
   return (
-    <div>
-      <h1 id="title">Welcome to the best gym companion app</h1>
-      <NewComponent />
-    </div>
+    <BackgroundContext.Provider value={background}>
+      <ColorContext.Provider value={color}>
+        <div>
+          <NewComponent />
+        </div>
+      </ColorContext.Provider>
+    </BackgroundContext.Provider>
   );
 };
 

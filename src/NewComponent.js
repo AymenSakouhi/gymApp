@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import data from "./data/data.json";
 import BackgroundContext from "./BackgroundContext";
 import ColorContext from "./ColorContext";
+import btnContext from "./BtnContext";
 
 const today = new Date().toLocaleString().split(",")[0];
 let muscle = "biceps"; // eslint-disable-line
@@ -10,6 +11,7 @@ const NewComponent = () => {
   const [exercises, setExercices] = useState([]);
   const [background, setBackground] = useContext(BackgroundContext); // eslint-disable-line no-unused-vars
   const [color, setColor] = useContext(ColorContext); // eslint-disable-line no-unused-vars
+  const [btnColor, setbtnColor] = useContext(btnContext); // eslint-disable-line no-unused-vars
 
   useEffect(() => {
     getGymDailyTodos();
@@ -137,7 +139,9 @@ const NewComponent = () => {
         <form name="newform">
           <label htmlFor="newitem">Type the muscle to work out here</label>
           <input type="text" name="newitem" id="newitem" v-model="newitem" />
-          <button type="submit">Add item</button>
+          <button type="submit" style={{ color: btnColor }}>
+            Add item
+          </button>
         </form>
       </main>
     </div>

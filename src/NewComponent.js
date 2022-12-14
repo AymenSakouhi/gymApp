@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import data from "./data/data.json";
-import BackgroundContext from "./BackgroundContext";
-import ColorContext from "./ColorContext";
-import btnContext from "./BtnContext";
+import BackgroundContext from "./contexts/BackgroundContext";
+import ColorContext from "./contexts/ColorContext";
+import btnContext from "./contexts/BtnContext";
 
 const today = new Date().toLocaleString().split(",")[0];
 let muscle = "biceps"; // eslint-disable-line

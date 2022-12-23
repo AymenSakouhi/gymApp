@@ -10,16 +10,16 @@ export default function useExercicesList(muscle) {
     const requestExercicesList = async () => {
       setExercicesList([]);
       setStatus("loading");
-      const res = await fetch(
-        `https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`,
-        {
-          headers: { "X-Api-Key": "D4xVCVZb7JamDQJUaw6KCA==3IVVUdCDX0K8n3PC" },
-          contentType: "application/json",
-        }
-      )
+      await fetch(`https://api.api-ninjas.com/v1/exercises?muscle=${muscle}`, {
+        headers: { "X-Api-Key": "D4xVCVZb7JamDQJUaw6KCA==3IVVUdCDX0K8n3PC" },
+        contentType: "application/json",
+      })
         .then((res) => res.json())
         .then((data) => {
           localeCache[muscle] = data || [];
+          localeCache[muscle].some((item) => {
+            item.done = false;
+          });
           setExercicesList(localeCache[muscle]);
           setStatus("loaded");
         });
@@ -34,5 +34,5 @@ export default function useExercicesList(muscle) {
     }
   }, [muscle]);
 
-  return [excercicesList, status];
+  return [excercicesList, setExercicesList, status];
 }

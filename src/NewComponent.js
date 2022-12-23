@@ -3,16 +3,19 @@ import BackgroundContext from "./contexts/BackgroundContext";
 import ColorContext from "./contexts/ColorContext";
 import btnContext from "./contexts/BtnContext";
 import useExercicesList from "./customhooks/useExercicesList";
+import { check } from "prettier";
 
 const today = new Date().toLocaleString().split(",")[0];
 const NewComponent = () => {
   const [date, setDate] = useState(today); // eslint-disable-line
-  const [muscle, setMuscle] = useState("biceps");
+  const [muscle, setMuscle] = useState("biceps"); //to change later to any kind of random muscle
   const [changedMuscle, setChangedMuscle] = useState();
   const [background, setBackground] = useContext(BackgroundContext); // eslint-disable-line no-unused-vars
   const [color, setColor] = useContext(ColorContext); // eslint-disable-line no-unused-vars
   const [btnColor, setbtnColor] = useContext(btnContext); // eslint-disable-line no-unused-vars
-  const [excercicesList, status] = useExercicesList(muscle); //eslint-disable-line no-unused-vars
+  const [excercicesList, setExercicesList, status] = useExercicesList(muscle); //eslint-disable-line no-unused-vars
+
+  const [checked, setChecked] = useState(false);
 
   const handleChange = (e) => {
     setChangedMuscle(e.target.value);
@@ -22,6 +25,13 @@ const NewComponent = () => {
     e.preventDefault();
     setMuscle(changedMuscle);
     console.log(muscle);
+  };
+
+  const handleChangeCheckBox = (item) => {
+    const newArray = [...excercicesList];
+    const index = newArray.indexOf(item);
+    newArray[index].done = !item.done;
+    setExercicesList(newArray);
   };
 
   useEffect(() => {}, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -64,7 +74,11 @@ const NewComponent = () => {
             </div>
           </li>
           {excercicesList?.map((item, index) => (
-            <li style={{}} key={index}>
+            <li
+              style={{}}
+              key={index}
+              className={item.done ? "done" : "undone"}
+            >
               <span className="label">{item.name}</span>
               <div className="actions">
                 <button
@@ -73,8 +87,14 @@ const NewComponent = () => {
                   title="Done"
                   className="btn-picto"
                 >
-                  <i aria-hidden="true" className="material-icons">
-                    check_box_outline_blank
+                  <i
+                    aria-hidden="true"
+                    className="material-icons"
+                    onClick={() => {
+                      handleChangeCheckBox(item);
+                    }}
+                  >
+                    {item.done ? "check_box" : "check_box_outline_blank"}
                   </i>
                 </button>
                 <button

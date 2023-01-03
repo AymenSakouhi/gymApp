@@ -6,6 +6,8 @@ import NewComponent from "./NewComponent";
 import BackgroundContext from "./contexts/BackgroundContext";
 import ColorContext from "./contexts/ColorContext";
 import btnContext from "./contexts/BtnContext";
+import Videos from "./components/Videos";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
   const background = useState("rgba(162,102,255,1)");
@@ -17,7 +19,16 @@ const App = () => {
       <ColorContext.Provider value={color}>
         <btnContext.Provider value={btnTextColor}>
           <div>
-            <NewComponent />
+            <Router>
+              <Switch>
+                <Route path="/videos">
+                  <Videos />
+                </Route>
+                <Route path="/">
+                  <NewComponent />
+                </Route>
+              </Switch>
+            </Router>
           </div>
         </btnContext.Provider>
       </ColorContext.Provider>

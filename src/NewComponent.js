@@ -3,7 +3,8 @@ import BackgroundContext from "./contexts/BackgroundContext";
 import ColorContext from "./contexts/ColorContext";
 import btnContext from "./contexts/BtnContext";
 import useExercicesList from "./customhooks/useExercicesList";
-import { check } from "prettier";
+import { Link } from "react-router-dom";
+import useJokeFetch from "./customhooks/useJokeFetch";
 
 const today = new Date().toLocaleString().split(",")[0];
 const NewComponent = () => {
@@ -15,7 +16,9 @@ const NewComponent = () => {
   const [btnColor, setbtnColor] = useContext(btnContext); // eslint-disable-line no-unused-vars
   const [excercicesList, setExercicesList, status] = useExercicesList(muscle); //eslint-disable-line no-unused-vars
 
-  const [checked, setChecked] = useState(false);
+  const [checked, setChecked] = useState(false); //eslint-disable-line
+
+  const [jokes, loadingJokesStatus] = useJokeFetch();
 
   const handleChange = (e) => {
     setChangedMuscle(e.target.value);
@@ -39,13 +42,14 @@ const NewComponent = () => {
   return (
     <div>
       <h1 style={{ color: color }} id="title">
-        Welcome to the best gym companion app
+        <Link to="/videos">Welcome to the best gym companion app</Link>
       </h1>
       <main id="todolist" style={{ background: background }}>
         <h1>
           Gym list of todos for {date}
           <span>Get things done, one item at a time.</span>
         </h1>
+        <h2>Random Joke: {jokes.value}</h2>
         <template v-if="todo.length" />
         <ul>
           <li className="done">

@@ -188,3 +188,19 @@ form button {
   left: calc(100% - 4px - 16px);
   opacity: 1;
 }
+
+.video-responsive {
+  overflow: hidden;
+  padding-bottom: 56.25%;
+  position: relative;
+  height: 0;
+}
+
+.video-responsive iframe {
+  top: 0;
+  left:0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  margin-top: 20px;
+}

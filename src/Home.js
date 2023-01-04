@@ -5,6 +5,8 @@ import btnContext from "./contexts/BtnContext";
 import useExercicesList from "./customhooks/useExercicesList";
 import { Link } from "react-router-dom";
 import useJokeFetch from "./customhooks/useJokeFetch";
+import Videos from "./components/Videos";
+import useWeatherFetch from "./customhooks/useWeatherFetch";
 
 const today = new Date().toLocaleString().split(",")[0];
 const NewComponent = () => {
@@ -16,9 +18,8 @@ const NewComponent = () => {
   const [btnColor, setbtnColor] = useContext(btnContext); // eslint-disable-line no-unused-vars
   const [excercicesList, setExercicesList, status] = useExercicesList(muscle); //eslint-disable-line no-unused-vars
 
-  const [checked, setChecked] = useState(false); //eslint-disable-line
-
-  const [jokes, loadingJokesStatus] = useJokeFetch();
+  const [jokes, loadingJokesStatus] = useJokeFetch(); //eslint-disable-line no-unused-vars
+  const [weatherNow, weatherNowStatus] = useWeatherFetch(); //eslint-disable-line no-unused-vars
 
   const handleChange = (e) => {
     setChangedMuscle(e.target.value);
@@ -49,7 +50,9 @@ const NewComponent = () => {
           Gym list of todos for {date}
           <span>Get things done, one item at a time.</span>
         </h1>
-        <h2>Random Joke: {jokes.value}</h2>
+        <h2>Tempreture in Munich: {weatherNow.temp} C</h2>
+        <h2>Random Gym Video:</h2>
+        <Videos />
         <template v-if="todo.length" />
         <ul>
           <li className="done">
@@ -78,41 +81,46 @@ const NewComponent = () => {
             </div>
           </li>
           {excercicesList?.map((item, index) => (
-            <li
-              style={{}}
-              key={index}
-              className={item.done ? "done" : "undone"}
-            >
-              <span className="label">{item.name}</span>
-              <div className="actions">
-                <button
-                  type="button"
-                  aria-label="Done"
-                  title="Done"
-                  className="btn-picto"
-                >
-                  <i
-                    aria-hidden="true"
-                    className="material-icons"
-                    onClick={() => {
-                      handleChangeCheckBox(item);
-                    }}
+            <>
+              <li
+                style={{}}
+                key={index}
+                className={item.done ? "done" : "undone"}
+              >
+                <span className="label">{item.name}</span>
+                <div className="actions">
+                  <button
+                    type="button"
+                    aria-label="Done"
+                    title="Done"
+                    className="btn-picto"
                   >
-                    {item.done ? "check_box" : "check_box_outline_blank"}
-                  </i>
-                </button>
-                <button
-                  type="button"
-                  aria-label="Delete"
-                  title="Delete"
-                  className="btn-picto"
-                >
-                  <i aria-hidden="true" className="material-icons">
-                    delete
-                  </i>
-                </button>
-              </div>
-            </li>
+                    <i
+                      aria-hidden="true"
+                      className="material-icons"
+                      onClick={() => {
+                        handleChangeCheckBox(item);
+                      }}
+                    >
+                      {item.done ? "check_box" : "check_box_outline_blank"}
+                    </i>
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Delete"
+                    title="Delete"
+                    className="btn-picto"
+                  >
+                    <i aria-hidden="true" className="material-icons">
+                      delete
+                    </i>
+                  </button>
+                </div>
+              </li>
+              <li>
+                <span className="label">{item.instructions}</span>
+              </li>
+            </>
           ))}
         </ul>
         <div className="togglebutton-wrapper togglebutton-checked">

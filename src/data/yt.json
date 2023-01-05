@@ -1,0 +1,37 @@
+[
+  {
+    "kind": "youtube#searchResult",
+    "etag": "cv-qVxO95X9AuYjqfA94U8AqNXU",
+    "id": {
+      "kind": "youtube#video",
+      "videoId": "dwIjcmh-3i8"
+    },
+    "snippet": {
+      "publishedAt": "2019-10-07T16:00:11Z",
+      "channelId": "UCFAsEytj1vVG7uPvWXLA5rg",
+      "title": "The ONLY 3 Triceps Exercises You Need for Mass",
+      "description":
+        "Building a set of horseshoe triceps doesn't have to be this elaborate process where you hit them from all different angles; likewise, ...",
+      "thumbnails": {
+        "default": {
+          "url": "https://i.ytimg.com/vi/dwIjcmh-3i8/default.jpg",
+          "width": 120,
+          "height": 90
+        },
+        "medium": {
+          "url": "https://i.ytimg.com/vi/dwIjcmh-3i8/mqdefault.jpg",
+          "width": 320,
+          "height": 180
+        },
+        "high": {
+          "url": "https://i.ytimg.com/vi/dwIjcmh-3i8/hqdefault.jpg",
+          "width": 480,
+          "height": 360
+        }
+      },
+      "channelTitle": "musclemonsters",
+      "liveBroadcastContent": "none",
+      "publishTime": "2019-10-07T16:00:11Z"
+    }
+  }
+]

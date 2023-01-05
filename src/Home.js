@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import useJokeFetch from "./customhooks/useJokeFetch";
 import Videos from "./components/Videos";
 import useWeatherFetch from "./customhooks/useWeatherFetch";
+import useYTvideoFetch from "./customhooks/useYTvideoFetch";
+// import videoId from "./data/yt.json";
 
 const today = new Date().toLocaleString().split(",")[0];
 const NewComponent = () => {
@@ -17,6 +19,7 @@ const NewComponent = () => {
   const [color, setColor] = useContext(ColorContext); // eslint-disable-line no-unused-vars
   const [btnColor, setbtnColor] = useContext(btnContext); // eslint-disable-line no-unused-vars
   const [excercicesList, setExercicesList, status] = useExercicesList(muscle); //eslint-disable-line no-unused-vars
+  const [videoId, YTVideoStatus] = useYTvideoFetch(muscle);
 
   const [jokes, loadingJokesStatus] = useJokeFetch(); //eslint-disable-line no-unused-vars
   const [weatherNow, weatherNowStatus] = useWeatherFetch(); //eslint-disable-line no-unused-vars
@@ -52,7 +55,12 @@ const NewComponent = () => {
         </h1>
         <h2>Tempreture in Munich: {weatherNow.temp} C</h2>
         <h2>Random Gym Video:</h2>
-        <Videos />
+        {videoId ? (
+          videoId.map((el) => <Videos embedId={el.id.videoId} />)
+        ) : (
+          <h3 style={{ color: "#311212" }}>no video sorry</h3>
+        )}
+
         <template v-if="todo.length" />
         <ul>
           <li className="done">
@@ -81,12 +89,8 @@ const NewComponent = () => {
             </div>
           </li>
           {excercicesList?.map((item, index) => (
-            <>
-              <li
-                style={{}}
-                key={index}
-                className={item.done ? "done" : "undone"}
-              >
+            <div key={index}>
+              <li style={{}} className={item.done ? "done" : "undone"}>
                 <span className="label">{item.name}</span>
                 <div className="actions">
                   <button
@@ -120,7 +124,7 @@ const NewComponent = () => {
               <li>
                 <span className="label">{item.instructions}</span>
               </li>
-            </>
+            </div>
           ))}
         </ul>
         <div className="togglebutton-wrapper togglebutton-checked">
